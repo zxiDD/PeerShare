@@ -168,7 +168,7 @@ export default function FileShareScreen({ myName, onExit }: Props) {
           <Text style={styles.title}>
             Peer<Text style={{ color: colors.secondary }}>Share</Text>
           </Text>
-          <Text style={styles.subTitle}>OPERATOR: {myName.toUpperCase()}</Text>
+          <Text style={styles.subTitle}>USER: {myName.toUpperCase()}</Text>
           <Text style={styles.id}>
             ID: <Text style={{ color: '#FFF' }}>{myId}</Text>
           </Text>

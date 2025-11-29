@@ -42,7 +42,7 @@ export default function Main() {
           <Text style={styles.label}>ENTER YOUR NAME</Text>
           <TextInput
             style={styles.input}
-            placeholder="ENTER OPERATOR NAME"
+            placeholder="Enter Your Name"
             placeholderTextColor={colors.placeholder}
             value={name}
             onChangeText={setName}
@@ -54,7 +54,7 @@ export default function Main() {
             onPress={() => setInDashboard(true)}
             activeOpacity={0.8}
           >
-            <Text style={styles.btnText}>INITIALIZE SYSTEM</Text>
+            <Text style={styles.btnText}>Start Sharing</Text>
           </TouchableOpacity>
         </View>
       </View>
