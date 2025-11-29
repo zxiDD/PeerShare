@@ -1,97 +1,79 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# PeerShare: P2P File Sharing
 
-# Getting Started
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![WebRTC](https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=webrtc&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=white)
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+**PeerShare** is a peer-to-peer file transfer application designed for speed, privacy, and performance. Built with **React Native** and **WebRTC**, it enables users to send files directly between devices over a local network (LAN) without using a third-party cloud.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Demo
 
-To start the Metro dev server, run the following command from the root of your React Native project:
 
-```sh
-# Using npm
-npm start
+https://github.com/user-attachments/assets/55a8efb8-e0f5-4ac1-9882-0acc1d96341d
 
-# OR using Yarn
-yarn start
+
+---
+
+## Key Features
+
+- **True P2P:-** Data travels directly from Device A to Device B. No intermediate storage.
+- **Secure:-** No involvement of a third party service makes the file sharing highly secure.
+- **Quick:-** Transfers files very fast over a high-speed LAN connection.
+
+---
+
+## Tech Stack
+
+- **Frontend:** React Native, TypeScript
+- **Networking:** `react-native-webrtc` (Data Channels)
+- **Signaling Server:** Express.js, `ws` (WebSocket)
+- **File System:** `react-native-blob-util`, `react-native-documents/picker`
+- **Protocol:** ICE (Interactive Connectivity Establishment) via Google STUN.
+
+---
+
+## Installation & Setup
+
+### 1. Clone the Repo
+
+```bash
+git clone [**React**'s][https://react.dev/]
+cd PeerShare
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+### 2. Install Dependencies
+```bash
+npm install
 ```
 
-### iOS
+### 3. Install iOS Pods (Mac Only)
+```bash
+cd ios && pod install && cd ..
+````
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+### 4. Start Signaling Server
+```bash
+cd backend && npm i && npm run dev
+````
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+### 5. Launch the application
+```bash
+npx react-native run-android
+npx react-native run-ios
 ```
 
-Then, and every time you update your native dependencies, run:
+##### Make sure you add your local ip-address in /src/services/PeerConnection.ts
 
-```sh
-bundle exec pod install
-```
+---
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Future Scopes
 
-```sh
-# Using npm
-npm run ios
+- Resume broken transfers.
+- QR Code scanning for instant pairing.
+- End-to-end encryption for file streams.
+- Multi-file selection support.
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
