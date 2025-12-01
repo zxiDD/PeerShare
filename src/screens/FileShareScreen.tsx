@@ -23,13 +23,15 @@ import { attachFileReceiver } from '../services/receiveFile';
 import { sendFileStream } from '../services/sendFile';
 import { colors, shadows } from '../utils/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Database } from '../database/database';
 
 interface Props {
   myName: string;
   onExit: () => void;
+  onHistory: () => void;
 }
 
-export default function FileShareScreen({ myName, onExit }: Props) {
+export default function FileShareScreen({ myName, onExit, onHistory }: Props) {
   const [myId, setMyId] = useState('...');
   const [remoteId, setRemoteId] = useState('');
   const [status, setStatus] = useState<'offline' | 'connecting' | 'connected'>(
@@ -147,6 +149,16 @@ export default function FileShareScreen({ myName, onExit }: Props) {
       const copy = [...prev];
       copy[idx].status = 'completed';
       copy[idx].progress = 1;
+      const item = copy[idx];
+      Database.addLog({
+        id: item.id,
+        type: item.type,
+        name: item.name,
+        size: item.size,
+        peerId: remoteId || 'unknown',
+        timestamp: Date.now(),
+        status: 'completed',
+      });
       return copy;
     });
   };
@@ -173,9 +185,14 @@ export default function FileShareScreen({ myName, onExit }: Props) {
             ID: <Text style={{ color: '#FFF' }}>{myId}</Text>
           </Text>
         </View>
-        <TouchableOpacity onPress={onExit} style={styles.exitBtn}>
-          <Text style={styles.exitText}>LOGOUT</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', gap: 15 }}>
+          <TouchableOpacity onPress={onHistory} style={styles.headerBtn}>
+            <Text style={styles.historyText}>HISTORY</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onExit} style={styles.headerBtn}>
+            <Text style={styles.exitText}>EXIT</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.box}>
@@ -318,4 +335,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     letterSpacing: 1,
   },
+  historyText: { color: colors.secondary, fontWeight: 'bold', fontSize: 12 },
+  headerBtn: { padding: 5 },
 });

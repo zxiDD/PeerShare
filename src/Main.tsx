@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,18 +10,31 @@ import {
 import FileShareScreen from './screens/FileShareScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, shadows } from './utils/theme';
+import { Database } from './database/database';
+import HistoryScreen from './screens/HistoryScreen';
 
 export default function Main() {
-  const [inDashboard, setInDashboard] = useState(false);
+  const [screen, setScreen] = useState<'home' | 'dashboard' | 'history'>(
+    'home',
+  );
   const [name, setName] = useState('');
 
-  if (inDashboard) {
+  useEffect(() => {
+    Database.init();
+  }, []);
+
+  if (screen === 'dashboard') {
     return (
       <FileShareScreen
         myName={name || 'Unknown'}
-        onExit={() => setInDashboard(false)}
+        onExit={() => setScreen('home')}
+        onHistory={() => setScreen('history')}
       />
     );
+  }
+
+  if (screen === 'history') {
+    return <HistoryScreen onBack={() => setScreen('home')} />;
   }
 
   return (
@@ -51,10 +64,16 @@ export default function Main() {
 
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => setInDashboard(true)}
+            onPress={() => setScreen('dashboard')}
             activeOpacity={0.8}
           >
             <Text style={styles.btnText}>Start Sharing</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.historyBtn}
+            onPress={() => setScreen('history')}
+          >
+            <Text style={styles.historyText}>View Your Transfers</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -128,5 +147,13 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 2,
     fontWeight: 'bold',
+  },
+  historyBtn: { marginTop: 20, alignSelf: 'center', padding: 10 },
+  historyText: {
+    color: colors.subtext,
+    fontSize: 12,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    textDecorationLine: 'underline',
   },
 });

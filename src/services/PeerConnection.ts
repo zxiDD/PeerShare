@@ -67,7 +67,7 @@ async function drainPendingCandidates(remoteId: string) {
 }
 
 let url =
-  Platform.OS === 'android' ? 'ws://10.0.2.2:9000' : 'ws://192.168.0.105:9000';
+  Platform.OS === 'android' ? 'ws://10.0.2.2:9000' : 'ws://localhost:9000';
 
 const ICE_CONFIG = {
   iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
